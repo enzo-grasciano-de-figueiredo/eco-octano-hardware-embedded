@@ -9,6 +9,22 @@
 
 ---
 
+## 📸 Galeria de Hardware & Fabricação Própria (UFPR / Eco Octano)
+
+> **Hardware real fabricado e testado pelo autor:** Placa de potência para controle de tração com corrosão química em percloreto de ferro, montagem manual e instrumentação da bancada de ensaios:
+
+<p align="center">
+  <img src="./controle-motor-bldc/photos/placa%20dc%201.jpeg" width="31%" alt="Placa DC montada e soldada" />
+  <img src="./controle-motor-bldc/photos/placa%20dc%202.jpeg" width="31%" alt="Trilhas de cobre corroídas em percloreto de ferro" />
+  <img src="./controle-motor-bldc/photos/placa%20dc%204.jpeg" width="31%" alt="Soldagem de componentes e conectores" />
+</p>
+<p align="center">
+  <img src="./controle-motor-bldc/photos/placa%20dc%205.jpeg" width="48%" alt="Placa em bancada de ensaio e validação PWM" />
+  <img src="./joulimetro-monitor-energia-esp32/photos/joulimetro%201.jpeg" width="48%" alt="Bancada do Joulímetro digital e telemetria" />
+</p>
+
+---
+
 ## 🏎️ Visão Geral dos Módulos
 
 Projetos de eletrônica de potência, controle de tração e instrumentação desenvolvidos para os veículos protótipos de alta eficiência energética da **Equipe Eco Octano da Universidade Federal do Paraná (UFPR)**.
