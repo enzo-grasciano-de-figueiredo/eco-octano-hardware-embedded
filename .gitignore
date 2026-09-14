@@ -1,0 +1,6 @@
+.pio/
+.cache/
+.vscode/
+*.pdsbak
+.DS_Store
+Thumbs.db
