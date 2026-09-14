@@ -1,56 +1,65 @@
-# ⚡ Eco Octano Hardware, Powertrain & Embedded Telemetry
+# ⚡ Eco Octano Hardware, Powertrain & Telemetria Energética (UFPR)
 
 [![Team](https://img.shields.io/badge/Equipe-Eco%20Octano%20UFPR-red.svg)](https://ufpr.br/)
 [![Platform](https://img.shields.io/badge/Embedded-ESP32%20%7C%20Arduino%20Nano-blue.svg)](https://espressif.com/)
 [![Cloud](https://img.shields.io/badge/IoT-Google%20Firebase%20RTDB-FFCA28.svg)](https://firebase.google.com/)
 [![Hardware](https://img.shields.io/badge/Sensors-SCT--013%20%7C%20EmonLib-green.svg)]()
 
-> **Módulos de eletrônica de potência, controle de motores elétricos e telemetria energética** desenvolvidos para veículos elétricos e projetos de eficiência energética na **Universidade Federal do Paraná (UFPR)** — Equipe Eco Octano.
+> 🤖 **Nota de Transparência**: A documentação técnica, diagramas e estruturação deste repositório foram gerados/organizados de forma automatizada com assistência de Inteligência Artificial (Google DeepMind Antigravity / Gemini), com base no código-fonte, fotos de bancada, esquemáticos e processos de fabricação desenvolvidos pelo autor.
 
 ---
 
 ## 🏎️ Visão Geral dos Módulos
 
-Este repositório reúne três desenvolvimentos centrais de engenharia elétrica e eletrônica embarcada:
+Projetos de eletrônica de potência, controle de tração e instrumentação desenvolvidos para os veículos protótipos de alta eficiência energética da **Equipe Eco Octano da Universidade Federal do Paraná (UFPR)**.
 
 ```
 ┌────────────────────────────────┐    PWM    ┌────────────────────────────────┐
-│ Módulo de Controle BLDC        ├──────────►│ Controlador Comercial / Inversor│
-│ (Arduino Nano / Algoritmo EGF) │           │ Motor Brushless DC             │
+│ Placa de Controle DC / BLDC    ├──────────►│ Controlador Comercial / Inversor│
+│ (Corrosão em Percloreto Ferro) │           │ Motor Brushless DC             │
 └────────────────────────────────┘           └────────────────────────────────┘
 
 ┌────────────────────────────────┐  I_rms/P  ┌────────────────────────────────┐
 │ Joulímetro & Telemetria Nuvem  ├──────────►│ Google Firebase Realtime DB    │
-│ (ESP32 + EmonLib + SCT-013)    │  (Joules) │ Dashboard em Tempo Real        │
-└────────────────────────────────┘           └────────────────────────────────┘
-
-┌────────────────────────────────┐   Layout  ┌────────────────────────────────┐
-│ Placas Hardware Trainee        ├──────────►│ Fabricação PCB (Fresadora CNC) │
-│ (Módulo de Medição & Suportes) │           │ Impressão 3D de Suportes STL   │
+│ (Projeto Trainee Eco Octano)   │  (Joules) │ Telemetria dos Boxes em Pista  │
 └────────────────────────────────┘           └────────────────────────────────┘
 ```
 
 ---
 
-## 🔌 Detalhamento dos Projetos
+## 🛠️ Detalhamento dos Projetos & Fotos Reais
 
-### 1. Controle Eletrônico de Motor BLDC (`controle-motor-bldc/`)
-- **Firmware**: Implementado para Arduino Nano / microcontroladores AVR.
-- **Modulação PWM Suave**: Geração de sinais de controle para acionamento de controladores comerciais de motores sem escovas (BLDC).
-- **Tratamento de Rampa & Limitador de Aceleração**: Proteção contra picos de corrente na partida e limitação de potência configurável para otimização de consumo de bateria em provas de eficiência energética.
+### 1. Placa de Controle DC & Motor BLDC (`controle-motor-bldc/`)
+- **Concepção & Fabricação Própria**: Projetada em software de layout de circuito impresso (PCB Layout) e **fabricada manualmente pelo autor através de corrosão química com Percloreto de Ferro**, furação de ilhas e soldagem de componentes discretos.
+- **Controle de Tração**: Geração de sinais PWM com rampa suave de aceleração para evitar picos de partida e limitar a corrente máxima demandada da bateria.
+
+<p align="center">
+  <img src="./controle-motor-bldc/photos/placa%20dc%201.jpeg" width="30%" alt="Placa DC montada" />
+  <img src="./controle-motor-bldc/photos/placa%20dc%202.jpeg" width="30%" alt="Trilhas corroídas em percloreto" />
+  <img src="./controle-motor-bldc/photos/placa%20dc%204.jpeg" width="30%" alt="Soldagem e montagem" />
+</p>
+<p align="center">
+  <img src="./controle-motor-bldc/photos/placa%20dc%205.jpeg" width="45%" alt="Bancada de testes" />
+  <img src="./controle-motor-bldc/photos/placa%20dc%207.jpeg" width="45%" alt="Circuito completo" />
+</p>
 
 ### 2. Joulímetro Digital & Telemetria em Nuvem (`joulimetro-monitor-energia-esp32/`)
-- **Microcontrolador**: ESP32 DevKit v1 operando com PlatformIO.
-- **Sensor de Corrente**: Sensor não-invasivo de efeito transformador de corrente (SCT-013).
-- **Cálculos Físicos em Tempo Real**:
-  - Amostragem e cálculo de **Corrente RMS ($I_{\text{RMS}}$)** via biblioteca `EmonLib`.
-  - **Potência Ativa ($P = V_{\text{RMS}} \cdot I_{\text{RMS}} \cdot \cos\theta$)** em Watts.
-  - **Energia Acumulada em Joules ($E = \int P \, dt$)** integrada continuamente.
-- **Nuvem em Tempo Real**: Transmissão sem fio instantânea dos valores amostrados para o **Google Firebase Realtime Database**, permitindo acompanhamento do consumo do veículo na pista pela equipe de telemetria nos boxes.
+- **Projeto de Ingresso Trainee**: Desenvolvido como projeto de admissão para a Equipe Eco Octano da UFPR.
+- **Aquisição e Medição Energética**:
+  - Leitura por sensor de corrente não-invasivo de núcleo bipartido (SCT-013).
+  - Cálculo contínuo de **Corrente RMS ($I_{\text{RMS}}$)** e **Potência Ativa ($P$)** via biblioteca `EmonLib`.
+  - **Integração temporal de energia consumida em Joules ($E = \int P \, dt$)** para fiscalização e estratégia de prova.
+- **Transmissão em Tempo Real**: Envio dos dados via Wi-Fi para o **Google Firebase Realtime Database**, viabilizando o monitoramento telemétrico nos boxes em tempo real.
 
-### 3. Placas de Circuito Impresso & Hardware Trainee (`placas-hardware-trainee/`)
-- Layout esquemático e arte vetorial (SVG/PDF) para usinagem rápida de PCBs em fresadora CNC no FabLab UFPR.
-- Modelagem mecânica de suportes de isolamento e fixação do sensor de corrente (arquivos STL para manufatura aditiva 3D).
+<p align="center">
+  <img src="./joulimetro-monitor-energia-esp32/photos/joulimetro%201.jpeg" width="30%" alt="Joulímetro em bancada" />
+  <img src="./joulimetro-monitor-energia-esp32/photos/joulimetro%202.jpeg" width="30%" alt="Detalhe das conexões do Joulímetro" />
+  <img src="./joulimetro-monitor-energia-esp32/photos/joulimetro%203.jpeg" width="30%" alt="Instrumentação" />
+</p>
+
+### 3. Placas de Hardware Trainee & Usinagem FabLab (`placas-hardware-trainee/`)
+- Esquemático técnico (`Layout_Placa_Trainee_2025.pdf`) e arte vetorial para usinagem rápida de circuitos em fresadora CNC no FabLab UFPR.
+- Modelagem mecânica de suportes de isolamento do sensor de corrente (arquivo 3D `suporte_corrente_dc.STL`).
 
 ---
 
@@ -58,16 +67,17 @@ Este repositório reúne três desenvolvimentos centrais de engenharia elétrica
 
 ```bash
 eco-octano-hardware-embedded/
-├── controle-motor-bldc/                  # Firmwares de controle de aceleração BLDC
-│   ├── Controle_BLDC_Com_EGFV3.ino       # Versão V3 com tratamento de rampa
-│   └── sem_limitador_controle_comercial_bldc.ino
-├── joulimetro-monitor-energia-esp32/     # Monitor de energia ESP32 + Firebase
-│   ├── src/main.cpp                      # Firmware com EmonLib e cliente Firebase
-│   └── platformio.ini                    # Configuração de build
+├── controle-motor-bldc/                  # Placa de controle de motor fabricada em percloreto
+│   ├── Controle_BLDC_Com_EGFV3.ino       # Firmware com rampa de aceleração
+│   ├── sem_limitador_controle_comercial_bldc.ino
+│   └── photos/                           # Fotos da fabricação da placa
+├── joulimetro-monitor-energia-esp32/     # Joulímetro Trainee (ESP32 + Firebase)
+│   ├── src/main.cpp                      # Firmware com cálculo de Joules e EmonLib
+│   ├── platformio.ini                    # Configurações de build
+│   └── photos/                           # Fotos do joulímetro em bancada
 └── placas-hardware-trainee/              # Arquivos de fabricação e circuitos
     ├── Layout_Placa_Trainee_2025.pdf     # Desenho esquemático da placa
     ├── PCB sensor de corrente.svg        # Roteamento para usinagem FabLab
-    ├── Sensor_Corrente_verde_v2.ino      # Código de teste e calibração
     └── suporte_corrente_dc.STL           # Suporte para fixação no chassi
 ```
 
